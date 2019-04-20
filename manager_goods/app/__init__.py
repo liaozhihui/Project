@@ -13,7 +13,17 @@ def create_app():
 
     db.init_app(app)
     from .users import users as users_blueprint
+    from .category import category as category_blueprint
+    from .infomation import information as information_blueprint
+    from .stocks import stocks as stocks_blueprint
+    from .out_in import out_in as out_in_blueprint
 
+    
     app.register_blueprint(users_blueprint)
+    app.register_blueprint(category_blueprint)
+    app.register_blueprint(information_blueprint)
+    app.register_blueprint(stocks_blueprint)
+    app.register_blueprint(out_in_blueprint)
+
     return app
 

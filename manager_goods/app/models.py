@@ -2,7 +2,7 @@
 from . import db
 
 class Product(db.Model):
-    __tablename__='product'
+    __tablename__='products'
     id=db.Column(db.Integer,primary_key=True)
     product_id=db.Column(db.String(16),unique=True,nullable=False)
     product_name=db.Column(db.String(32),nullable=False)
@@ -14,7 +14,7 @@ class Product(db.Model):
     sid=db.Column(db.Integer,db.ForeignKey("prostock.id"),unique=True)#外键ProStock的id
     iid=db.Column(db.Integer,db.ForeignKey("proinfo.id"),unique=True)#外键ProInfo的id
     cid=db.Column(db.Integer,db.ForeignKey("category.id"))#外键categoryid
-    out_in = db.relationship("Out_In", backref="product", lazy='dynamic')
+    out_in = db.relationship("Out_In", backref="products", lazy='dynamic')
 
 class Category(db.Model):
     __tablename__ = 'category'
@@ -40,7 +40,7 @@ class Out_In(db.Model):
     number=db.Column(db.Integer,nullable=False)
     time=db.Column(db.DateTime,nullable=False)
     status=db.Column(db.Integer,nullable=False)
-    pid=db.Column(db.Integer,db.ForeignKey("product.id"),nullable=False)
+    pid=db.Column(db.Integer,db.ForeignKey("products.id"),nullable=False)
     uid=db.Column(db.Integer,db.ForeignKey("userinfo.id"),nullable=False)
 
 class ProInfo(db.Model):
