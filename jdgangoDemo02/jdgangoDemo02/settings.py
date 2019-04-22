@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'news',
+    'news', #放应用的名字
     'music',
     'sport',
     'index',
@@ -126,3 +126,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+#静态文件的存储路径
+STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)

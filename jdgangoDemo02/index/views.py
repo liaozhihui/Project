@@ -52,6 +52,10 @@ def tag_views(request):
     return render(request,'04-tag.html',locals())
 
 
+def static_views(request):
+    return render(request,'05-static.html')
+
+
 
 
 
