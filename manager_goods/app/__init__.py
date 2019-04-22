@@ -17,6 +17,8 @@ def create_app():
     from .infomation import information as information_blueprint
     from .stocks import stocks as stocks_blueprint
     from .out_in import out_in as out_in_blueprint
+    from .app_views import app_view as app_views_blueprint
+
 
 
     app.register_blueprint(users_blueprint)
@@ -24,6 +26,9 @@ def create_app():
     app.register_blueprint(information_blueprint)
     app.register_blueprint(stocks_blueprint)
     app.register_blueprint(out_in_blueprint)
+    app.register_blueprint(app_views_blueprint)
+
 
     return app
+
 

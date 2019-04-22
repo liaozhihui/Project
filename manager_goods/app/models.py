@@ -30,7 +30,6 @@ class UserInfo(db.Model):
     user_name=db.Column(db.String(32),nullable=False)
     user_password=db.Column(db.String(32),nullable=False)
     job_number=db.Column(db.String(32),nullable=False)
-
     mobile_phone=db.Column(db.String(12),nullable=False)
     role=db.Column(db.Integer,nullable=False)
     out_in = db.relationship("Out_In", backref="userinfo", lazy='dynamic')

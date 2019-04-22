@@ -1,0 +1,11 @@
+{% extends '01-parent.html' %}
+
+{% block title %}
+    这是02-child
+{% endblock %}
+
+
+{% block content %}
+      <h1>欢迎:{{ uname }}</h1>
+        <h1 style="background: orange">这是01-parent中允许被修改的内容</h1>
+{% endblock %}
