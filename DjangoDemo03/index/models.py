@@ -17,11 +17,22 @@ class Publisher(models.Model):
     country=models.CharField(max_length=30)
     website=models.URLField()
 class Author(models.Model):
-    name=models.CharField(max_length=12,db_index=True)
-    age=models.ImageField(max_length=10)
+    name=models.CharField(max_length=12,db_index=True,verbose_name="姓名")
+    age=models.IntegerField()
     email=models.EmailField(null=True)
     #增加一个列isActive，表示是否被激活
     isActive=models.BooleanField(default=True)
+    def __str__(self):
+        return self.name
+    #声明内部类-Meta ,定义展现形式
+    class Meta:
+        #定义表名
+        db_table = 'author'
+        #定义实体类在admin中的显示名称(单数)
+
+        verbose_name="作者"
+        # 定义实体类在admin中的显示名称(复数)
+        verbose_name_plural=verbose_name
 class Book(models.Model):
     title=models.CharField(max_length=32)
     publicate=models.DateField(null=True)
