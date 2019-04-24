@@ -19,4 +19,8 @@ url(r'^11-querybyid/(\d+)$',views.querybyid_views),
 url(r'^12-deletebyid/(\d+)$',views.deletebyid_views),
 url(r'^13-updateall/$',views.updateall_views),
 ]
-
+urlpatterns+=[url(r'^14-oto/$',views.oto_views),
+              url(r'^15-otm/$',views.otm_views),
+              url(r'^16-otm-exer/(\d*)$', views.otmexer_views),
+              url(r'^17-mtm/$', views.mtm_views),
+              ]

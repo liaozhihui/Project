@@ -147,3 +147,79 @@ def deletebyid_views(request,id):
 def updateall_views(request):
     Author.objects.all().update(age=F('age')+10)
     return redirect("/10-queryall")
+
+def oto_views(request):
+    #1、向wife表中增加数据
+    #1、1.通过外键属性关联数据
+    # wife=Wife()
+    # wife.wname="lv夫人"
+    # wife.wage=16
+    # wife.author_id=1 #关联wife和author
+    # wife.save()
+    #1.2、通过关联属性关联数据
+    # author=Author.objects.get(id=2)
+    # wife = Wife()
+    # wife.wname="wei夫人"
+    # wife.wage=40
+    # wife.author=author #关联wife和author
+    # wife.save()
+    #1.3查询"wei夫人"以及对象的Author的信息
+    # wife=Wife.objects.get(wname="wei夫人")
+    # print(wife.author)
+    # #1.4查询"WangDB"以及对应Wife信息
+    # print(Author.objects.get(name="WangeDB").wife.wname)
+    book1=Book.objects.get(title="海底两万里")
+    book1.publisher_id=2
+    book1.save()
+
+    book2=Book.objects.get(title="钢铁是怎样炼成的")
+
+    return HttpResponse("修改成功")
+
+def otm_views(request):
+    pub=Publisher.objects.get(name="清华出版社")
+    books=pub.book_set.all()
+    print(books)
+
+    return HttpResponse("查询数据成功")
+
+def otmexer_views(request,pid):
+    #pid表示的是要查看的publisher的id
+
+    #1、查询所有的publisher
+    publishers=Publisher.objects.all()
+    #根据pid的值来判断查询所有书籍还是按条件查询书籍
+    books = Book.objects.all()
+    # 2、查询所有的book
+    if pid:
+        print("pid", pid)
+        pid=int(pid)
+        if pid >0:
+            # books=Book.objects.filter(publisher_id=pid)
+            publisher=Publisher.objects.get(id=pid)
+            books=publisher.book_set.all()
+
+
+    print(locals())
+    return render(request,"16-otm-exer.html",locals())
+
+def mtm_views(request):
+    #将老魏与清华大学出版社关联在一起
+    # author = Author.objects.get(name="老魏")
+    # publisher=Publisher.objects.get(name__startswith="清华大学出版")
+    # author.publishers.add(publisher)
+    #1、查询author中id为4的Author所对应的出版社
+    author = Author.objects.get(id=4)
+    pubs = author.publishers.all()
+    print("作者姓名:",author.name)
+    print("签约出版社:")
+    for pub in pubs:
+        print("出版社名称:",pub.name)
+    #2、查询publisher中id为1的出版社对应的作者们
+    pub=Publisher.objects.get(id=1)
+    authors=pub.author_set.all()
+    print("出版社名称:",pub.name)
+    print("签约作者:")
+    for au in authors:
+        print("作者姓名:",au.name)
+    return HttpResponse("查询数据成功")

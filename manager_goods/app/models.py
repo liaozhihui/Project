@@ -11,8 +11,8 @@ class Product(db.Model):
     status=db.Column(db.Integer,nullable=False)
     create_time=db.Column(db.DateTime,nullable=False)
     unit=db.Column(db.String(10),nullable=False)
-    sid=db.Column(db.Integer,db.ForeignKey("prostock.id"),unique=True)#外键ProStock的id
-    iid=db.Column(db.Integer,db.ForeignKey("proinfo.id"),unique=True)#外键ProInfo的id
+    sid=db.Column(db.Integer,db.ForeignKey("prostock.id"))#外键ProStock的id
+    iid=db.Column(db.Integer,db.ForeignKey("proinfo.id"))#外键ProInfo的id
     cid=db.Column(db.Integer,db.ForeignKey("category.id"))#外键categoryid
     out_in = db.relationship("Out_In", backref="products", lazy='dynamic')
 
@@ -39,8 +39,8 @@ class Out_In(db.Model):
     number=db.Column(db.Integer,nullable=False)
     time=db.Column(db.DateTime,nullable=False)
     status=db.Column(db.Integer,nullable=False)
-    pid=db.Column(db.Integer,db.ForeignKey("products.id"),nullable=False)
-    uid=db.Column(db.Integer,db.ForeignKey("userinfo.id"),nullable=False)
+    pid=db.Column(db.Integer,db.ForeignKey("products.id"))
+    uid=db.Column(db.Integer,db.ForeignKey("userinfo.id"))
 
 class ProInfo(db.Model):
     __tablename__ = 'proinfo'
@@ -48,7 +48,7 @@ class ProInfo(db.Model):
     information=db.Column(db.String(64))
 
     # 增加外检约束和唯一约束
-    product = db.relationship("Product", backref="proinfo", uselist=False)
+    product = db.relationship("Product", backref="proinfo",lazy="dynamic")
 
 class ProStock(db.Model):
     __tablename__ = 'prostock'
@@ -57,5 +57,5 @@ class ProStock(db.Model):
     warning_stock = db.Column(db.Integer, nullable=False)
 
     status=db.Column(db.Integer, nullable=False)
-    product=db.relationship("Product",backref="prostock",uselist=False)
+    product=db.relationship("Product",backref="prostock",lazy="dynamic")
 

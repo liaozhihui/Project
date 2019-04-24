@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 013738372a2b
+Revision ID: ce3580f524df
 Revises: 
-Create Date: 2019-04-20 09:38:45.873732
+Create Date: 2019-04-24 20:00:59.294143
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '013738372a2b'
+revision = 'ce3580f524df'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,7 +41,6 @@ def upgrade():
     sa.Column('user_name', sa.String(length=32), nullable=False),
     sa.Column('user_password', sa.String(length=32), nullable=False),
     sa.Column('job_number', sa.String(length=32), nullable=False),
-    sa.Column('department', sa.String(length=16), nullable=False),
     sa.Column('mobile_phone', sa.String(length=12), nullable=False),
     sa.Column('role', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
@@ -62,17 +61,15 @@ def upgrade():
     sa.ForeignKeyConstraint(['iid'], ['proinfo.id'], ),
     sa.ForeignKeyConstraint(['sid'], ['prostock.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('iid'),
-    sa.UniqueConstraint('product_id'),
-    sa.UniqueConstraint('sid')
+    sa.UniqueConstraint('product_id')
     )
     op.create_table('out_in',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('number', sa.Integer(), nullable=False),
     sa.Column('time', sa.DateTime(), nullable=False),
     sa.Column('status', sa.Integer(), nullable=False),
-    sa.Column('pid', sa.Integer(), nullable=False),
-    sa.Column('uid', sa.Integer(), nullable=False),
+    sa.Column('pid', sa.Integer(), nullable=True),
+    sa.Column('uid', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['pid'], ['products.id'], ),
     sa.ForeignKeyConstraint(['uid'], ['userinfo.id'], ),
     sa.PrimaryKeyConstraint('id')

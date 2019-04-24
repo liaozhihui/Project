@@ -16,6 +16,8 @@ class Publisher(models.Model):
     city = models.CharField(max_length=50)
     country=models.CharField(max_length=30)
     website=models.URLField()
+    def __str__(self):
+        return self.name
 class Author(models.Model):
     name=models.CharField(max_length=12,db_index=True,verbose_name="姓名")
     age=models.IntegerField()
@@ -33,6 +35,23 @@ class Author(models.Model):
         verbose_name="作者"
         # 定义实体类在admin中的显示名称(复数)
         verbose_name_plural=verbose_name
+    #增加一个属性publishers,用来表示对Publisher的多对多的引用
+    publishers=models.ManyToManyField(Publisher)
 class Book(models.Model):
     title=models.CharField(max_length=32)
     publicate=models.DateField(null=True)
+    #增加一个属性publisher表示对publisher的一对多的引用
+    publisher = models.ForeignKey(Publisher,null=True)
+    def __str__(self):
+        return self.title
+
+#创建Wife类，表名为wife,关联Author类,实现一对一的关系
+class Wife(models.Model):
+    wname=models.CharField(max_length=30)
+    wage=models.IntegerField()
+    #通过一对一关联关系引用自Author实体
+    author=models.OneToOneField(Author)
+    def __str__(self):
+        return self.wname
+    class Meta:
+        db_table="wife"
