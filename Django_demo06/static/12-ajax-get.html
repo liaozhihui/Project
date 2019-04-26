@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-1.11.3.js"></script>
+    <script>
+        $(function () {
+            $("#btnClick").click(function () {
+                $.get("/12-server/","name=lzMaria&age=18",function (data) {
+                    $("#show").html(data);
+                })
+
+            })
+            $("#btnJSON").click(function () {
+                    $.get("/12-json/",function (data) {
+                        console.log("uname:"+data.name)
+                        console.log("age:"+data.age)
+                        console.log("gender:"+data.gender)
+                        console.log("email:"+data.email)
+                    },"json");
+                })
+            $("#btnJSONUsers").click(function () {
+                $.get("/12-json-users/",function (data) {
+                    for(var i=0;i<data.length;i++){
+                        var user=data[i]
+                        console.log("ID:"+user.pk);
+                        console.log("Name:"+user.fields.uname)
+                        console.log("pwd:"+user.fields.upwd)
+                    }
+                },"json")
+            })
+        })
+    </script>
+</head>
+<body>
+    <h1>This is a static page</h1>
+    <button id="btnClick">Send Ajax Request</button>
+    <button id="btnJSON">Send Ajax get json</button>
+    <button id="btnJSONUsers">Send Ajax get json Users</button>
+<div id="show"></div>
+</body>
+</html>
